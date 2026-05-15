@@ -39,7 +39,7 @@ export function Home() {
   function toggle(id: string) { setBookmarks(storage.toggleBookmark(id)) }
 
   return (
-    <div className="min-h-dvh bg-white pb-nav">
+    <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
 
       {/* ── 헤더 ── */}
       <div className="px-4 pt-header pb-3">

@@ -46,7 +46,7 @@ export function ForYou() {
   }, [query, cat, sort, profile])
 
   return (
-    <div className="min-h-dvh bg-white pb-nav">
+    <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
       {/* header */}
       <div className="px-4 pt-header pb-3 bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="flex items-center justify-between mb-3">
