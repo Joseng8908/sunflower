@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ──────────────────────────────────────────── */
+:root {
+  /* colors */
+  --c-primary:   #6366f1;
+  --c-primary-light: #eef2ff;
+  --c-bg:        #f4f4f8;
+  --c-surface:   #ffffff;
+  --c-border:    #efefef;
+  --c-text:      #111827;
+  --c-text-sub:  #6b7280;
+  --c-text-muted:#9ca3af;
+
+  /* radius */
+  --r-sm:  8px;
+  --r-md:  12px;
+  --r-lg:  16px;
+  --r-xl:  20px;
+
+  /* shadow */
+  --s-card: 0 1px 8px rgba(0,0,0,0.06);
+  --s-card-hover: 0 4px 16px rgba(0,0,0,0.1);
+
+  /* spacing scale (multiples of 4px) */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px;
+  --sp-4: 16px; --sp-5: 20px; --sp-6: 24px;
+
+  /* typography */
+  --fs-xs:  11px;
+  --fs-sm:  12px;
+  --fs-md:  13px;
+  --fs-base: 14px;
+  --fs-lg:  16px;
+  --fs-xl:  18px;
+  --fs-2xl: 22px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--c-bg);
+  font-family: -apple-system, 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-size: var(--fs-md);
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+/* ── Mobile shell ───────────────────────────────────────────── */
+#root {
+  max-width: 390px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--c-surface);
+  position: relative;
+  box-shadow: 0 0 40px rgba(0,0,0,0.12);
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar hide ─────────────────────────────────────────── */
+.hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
