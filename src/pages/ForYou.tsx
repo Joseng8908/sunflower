@@ -48,7 +48,7 @@ export function ForYou() {
   return (
     <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
       {/* header */}
-      <div className="px-4 pt-header pb-3 bg-white border-b border-gray-100 sticky top-0 z-10">
+      <div className="px-5 pt-header pb-3 bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="flex items-center justify-between mb-3">
           <PageTitle>나에게 맞는 혜택</PageTitle>
           {profile && (

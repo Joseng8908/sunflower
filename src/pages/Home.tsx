@@ -42,7 +42,7 @@ export function Home() {
     <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
 
       {/* ── 헤더 ── */}
-      <div className="px-4 pt-header pb-3">
+      <div className="px-5 pt-header pb-3">
         <div className="flex items-center justify-between">
           <h1 className="text-[22px] font-bold text-gray-900 leading-tight">혜바라기</h1>
           <button className="relative w-8 h-8 flex items-center justify-center">
