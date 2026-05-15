@@ -53,7 +53,7 @@ export function Home() {
       </div>
 
       {/* ── 검색 ── */}
-      <div className="px-4 pb-4">
+      <div className="px-5 pb-4">
         <button
           onClick={() => navigate('/for-you')}
           className="w-full flex items-center gap-2 bg-gray-100 rounded-xl px-3.5 py-2.5 text-left"
@@ -67,7 +67,7 @@ export function Home() {
 
       {/* ── 프로필 미입력 ── */}
       {!profile && (
-        <div className="mx-4 mb-4 bg-indigo-50 rounded-xl px-4 py-3 flex items-center justify-between">
+        <div className="mx-5 mb-4 bg-indigo-50 rounded-xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-start gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-[5px] shrink-0" />
             <p className="text-[12px] text-gray-600 leading-relaxed">
@@ -95,7 +95,7 @@ export function Home() {
 
       {/* ── DEADLINE SOON ── */}
       {deadlineSoon.length > 0 && (
-        <section className="px-4 mb-6">
+        <section className="px-5 mb-6">
           <SectionLabel className="mb-2.5">Deadline Soon</SectionLabel>
           <div className="space-y-2">
             {deadlineSoon.map((b) => {
@@ -118,7 +118,7 @@ export function Home() {
 
       {/* ── 학교 혜택 ── */}
       {profile && (profile.schoolType === 'university' || profile.schoolType === 'college' || profile.schoolType === 'grad') && (
-        <section className="px-4 mb-6">
+        <section className="px-5 mb-6">
           <div className="flex items-center gap-1.5 mb-2.5">
             <GraduationCap size={12} className="text-indigo-400" strokeWidth={2} />
             <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-indigo-400">학교 혜택</span>
@@ -136,7 +136,7 @@ export function Home() {
       )}
 
       {/* ── FOR YOU ── */}
-      <section className="px-4 mb-6">
+      <section className="px-5 mb-6">
         <div className="flex items-center justify-between mb-2.5">
           <SectionLabel>For You</SectionLabel>
           <button
@@ -173,7 +173,7 @@ export function Home() {
 
       {/* ── SIMILAR USERS PICK ── */}
       {profile && (
-        <section className="px-4 mb-6">
+        <section className="px-5 mb-6">
           <SectionLabel className="mb-2.5">Similar Users Pick</SectionLabel>
           <div className="bg-gray-50 rounded-xl px-4 py-3 space-y-2">
             {[
