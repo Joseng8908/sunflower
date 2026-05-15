@@ -11,7 +11,7 @@ const NAV = [
 
 export function BottomNav() {
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-16px)] max-w-[390px] bg-white border-t border-gray-100 z-50 pb-safe rounded-b-[40px]">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%_-_16px)] max-w-[390px] bg-white border-t border-gray-100 z-50 pb-safe rounded-b-[40px]">
       <div className="flex">
         {NAV.map(({ to, Icon, label }) => (
           <NavLink
