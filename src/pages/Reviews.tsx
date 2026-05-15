@@ -10,12 +10,12 @@ const benefits = benefitsData as Benefit[]
 export function Reviews() {
   return (
     <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
-      <div className="px-4 pt-header pb-3">
+      <div className="px-5 pt-header pb-3">
         <h1 className="text-[22px] font-bold text-gray-900">수혜 후기</h1>
         <p className="text-[12px] text-gray-400 mt-0.5">실제 수혜자들의 생생한 후기</p>
       </div>
 
-      <section className="px-4">
+      <section className="px-5">
         <SectionLabel className="mb-2.5">Recent Reviews</SectionLabel>
         <div className="space-y-2">
           {reviews.map((r) => {
