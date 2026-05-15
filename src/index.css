@@ -44,7 +44,7 @@ body {
 
 /* mobile shell */
 #root {
-  width: 100%;
+  width: calc(100% - 16px);
   max-width: 390px;
   min-height: 100dvh;
   margin: 0 auto;
