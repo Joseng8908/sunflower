@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bell, ChevronRight, CalendarClock, GraduationCap } from 'lucide-react'
+import { Bell, ChevronRight, Sparkles } from 'lucide-react'
 import { storage } from '@/lib/storage'
 import { filterBenefits } from '@/lib/filter'
 import { getDday } from '@/lib/dday'
-import { SectionLabel, Badge, Chip } from '@/components/ui'
+import { SectionLabel, Chip } from '@/components/ui'
 import { BenefitCard } from '@/components/benefit/BenefitCard'
 import benefitsData from '@/data/benefits.json'
 import type { Benefit, BenefitCategory } from '@/types'
@@ -36,15 +36,24 @@ export function Home() {
     .filter((b) => cat === 'all' || b.category === cat)
     .slice(0, 5)
 
+  const schoolBenefits = profile && (profile.schoolType === 'university' || profile.schoolType === 'college' || profile.schoolType === 'grad')
+    ? matched.filter((b) => b.category === 'scholarship').slice(0, 2)
+    : []
+
   function toggle(id: string) { setBookmarks(storage.toggleBookmark(id)) }
 
   return (
     <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
 
       {/* ── 헤더 ── */}
-      <div className="px-5 pt-header pb-3">
+      <div className="px-5 pt-header pb-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-[22px] font-bold text-gray-900 leading-tight">혜바라기</h1>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+              <Sparkles size={16} className="text-white" />
+            </div>
+            <h1 className="text-[22px] font-bold text-gray-900 leading-tight">혜바라기</h1>
+          </div>
           <button className="relative w-8 h-8 flex items-center justify-center">
             <Bell size={19} className="text-gray-600" strokeWidth={1.8} />
             <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-red-500" />
@@ -52,22 +61,9 @@ export function Home() {
         </div>
       </div>
 
-      {/* ── 검색 ── */}
-      <div className="px-5 pb-4">
-        <button
-          onClick={() => navigate('/for-you')}
-          className="w-full flex items-center gap-2 bg-gray-100 rounded-xl px-3.5 py-2.5 text-left"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-          <span className="text-[13px] text-gray-400">얻고 싶은 혜택이나 고민을 입력해보세요</span>
-        </button>
-      </div>
-
       {/* ── 프로필 미입력 ── */}
       {!profile && (
-        <div className="mx-5 mb-4 bg-indigo-50 rounded-xl px-4 py-3 flex items-center justify-between">
+        <div className="mx-5 mb-5 bg-indigo-50 rounded-xl px-4 py-3.5 flex items-center justify-between">
           <div className="flex items-start gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-[5px] shrink-0" />
             <p className="text-[12px] text-gray-600 leading-relaxed">
@@ -83,61 +79,45 @@ export function Home() {
         </div>
       )}
 
-      {/* ── 마감 알림 ── */}
-      {deadlineSoon.length > 0 && (
-        <div className="mx-4 mb-5 flex items-center gap-2 bg-amber-50 rounded-xl px-3.5 py-2.5">
-          <CalendarClock size={14} className="text-amber-500 shrink-0" />
-          <p className="text-[12px] text-amber-800 font-semibold">
-            마감 전! 놓치기 쉬운 혜택 {deadlineSoon.length}개
-          </p>
-        </div>
-      )}
-
       {/* ── DEADLINE SOON ── */}
       {deadlineSoon.length > 0 && (
-        <section className="px-5 mb-6">
-          <SectionLabel className="mb-2.5">Deadline Soon</SectionLabel>
-          <div className="space-y-2">
-            {deadlineSoon.map((b) => {
-              const d = getDday(b.applicationEnd)!
-              return (
-                <button
-                  key={b.id}
-                  onClick={() => navigate(`/benefit/${b.id}`)}
-                  className="w-full flex items-center gap-3 bg-indigo-50 rounded-xl px-3.5 py-3 text-left"
-                >
-                  <Badge variant={d <= 3 ? 'urgent' : 'normal'}>D-{d}</Badge>
-                  <span className="flex-1 text-[13px] font-semibold text-gray-800">{b.title}</span>
-                  <ChevronRight size={14} className="text-gray-400 shrink-0" />
-                </button>
-              )
-            })}
+        <section className="px-5 pt-6 pb-8">
+          <SectionLabel className="mb-3">Deadline Soon</SectionLabel>
+          <div className="space-y-3">
+            {deadlineSoon.map((b) => (
+              <BenefitCard
+                key={b.id}
+                benefit={b}
+                profile={profile}
+                bookmarked={bookmarks.includes(b.id)}
+                onToggleBookmark={toggle}
+              />
+            ))}
           </div>
         </section>
       )}
 
       {/* ── 학교 혜택 ── */}
-      {profile && (profile.schoolType === 'university' || profile.schoolType === 'college' || profile.schoolType === 'grad') && (
-        <section className="px-5 mb-6">
-          <div className="flex items-center gap-1.5 mb-2.5">
-            <GraduationCap size={12} className="text-indigo-400" strokeWidth={2} />
-            <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-indigo-400">학교 혜택</span>
-          </div>
-          <div className="bg-indigo-50 rounded-xl px-4 py-3">
-            <div className="flex items-start justify-between gap-2">
-              <div className="flex-1 min-w-0">
-                <p className="text-[14px] font-bold text-gray-900">교내 장학금 신청 기간</p>
-                <p className="text-[11px] text-gray-500 mt-0.5">재학생 대상 · 성적·생활비 장학금 포함</p>
-              </div>
-              <Badge variant="normal">학교</Badge>
-            </div>
+      {schoolBenefits.length > 0 && (
+        <section className="px-5 pt-6 pb-8">
+          <SectionLabel className="mb-3">학교 혜택</SectionLabel>
+          <div className="space-y-3">
+            {schoolBenefits.map((b) => (
+              <BenefitCard
+                key={b.id}
+                benefit={b}
+                profile={profile}
+                bookmarked={bookmarks.includes(b.id)}
+                onToggleBookmark={toggle}
+              />
+            ))}
           </div>
         </section>
       )}
 
       {/* ── FOR YOU ── */}
-      <section className="px-5 mb-6">
-        <div className="flex items-center justify-between mb-2.5">
+      <section className="px-5 pt-6 pb-8">
+        <div className="flex items-center justify-between mb-3">
           <SectionLabel>For You</SectionLabel>
           <button
             onClick={() => navigate('/for-you')}
@@ -147,7 +127,7 @@ export function Home() {
           </button>
         </div>
 
-        <div className="flex gap-1.5 overflow-x-auto hide-scrollbar mb-3">
+        <div className="grid grid-cols-5 gap-1.5 py-4">
           {CATS.map(({ key, label }) => (
             <Chip key={key} active={cat === key} onClick={() => setCat(key)}>
               {label}
@@ -155,7 +135,7 @@ export function Home() {
           ))}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           {forYou.length === 0
             ? <p className="text-center text-[13px] text-gray-400 py-8">해당 혜택이 없습니다</p>
             : forYou.map((b) => (
@@ -171,23 +151,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* ── SIMILAR USERS PICK ── */}
-      {profile && (
-        <section className="px-5 mb-6">
-          <SectionLabel className="mb-2.5">Similar Users Pick</SectionLabel>
-          <div className="bg-gray-50 rounded-xl px-4 py-3 space-y-2">
-            {[
-              `${profile.regionSido} ${profile.employmentStatus === 'student' ? '재학생' : '청년'} → 근로장학금 신청 많음`,
-              `${profile.age}세 → 청년내일저축계좌 관심`,
-            ].map((text) => (
-              <p key={text} className="text-[12px] text-gray-600 flex items-start gap-1.5">
-                <span className="text-gray-400 shrink-0 mt-0.5">·</span>
-                {text}
-              </p>
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   )
 }

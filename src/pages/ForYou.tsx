@@ -1,10 +1,10 @@
 import { useState, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { X } from 'lucide-react'
+import { X, Sparkles } from 'lucide-react'
 import { storage } from '@/lib/storage'
 import { filterBenefits, matchScore } from '@/lib/filter'
 import { BenefitCard } from '@/components/benefit/BenefitCard'
-import { Chip, PageTitle } from '@/components/ui'
+import { Chip } from '@/components/ui'
 import { formatCategory } from '@/lib/format'
 import benefitsData from '@/data/benefits.json'
 import type { Benefit, BenefitCategory } from '@/types'
@@ -48,9 +48,14 @@ export function ForYou() {
   return (
     <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
       {/* header */}
-      <div className="px-5 pt-header pb-3 bg-white border-b border-gray-100 sticky top-0 z-10">
+      <div className="px-5 pt-header pb-7 bg-[#f5f5fa] sticky top-0 z-10">
         <div className="flex items-center justify-between mb-3">
-          <PageTitle>나에게 맞는 혜택</PageTitle>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+              <Sparkles size={16} className="text-white" />
+            </div>
+            <h1 className="text-[22px] font-bold text-gray-900">혜바라기</h1>
+          </div>
           {profile && (
             <span className="text-[11px] bg-indigo-50 text-indigo-500 px-2 py-0.5 rounded-md font-semibold">
               {filtered.length}개
@@ -59,7 +64,7 @@ export function ForYou() {
         </div>
 
         {/* search */}
-        <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3 py-2.5 mb-2.5">
+        <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3 py-2.5 mb-4">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
@@ -76,7 +81,7 @@ export function ForYou() {
         </div>
 
         {/* category chips */}
-        <div className="flex gap-1.5 overflow-x-auto hide-scrollbar">
+        <div className="grid grid-cols-4 gap-1.5 pt-4">
           <Chip active={cat === null} onClick={() => setCat(null)}>전체</Chip>
           {CATEGORIES.map((c) => (
             <Chip key={c} active={cat === c} onClick={() => setCat(cat === c ? null : c)}>
@@ -87,7 +92,7 @@ export function ForYou() {
       </div>
 
       {/* sort */}
-      <div className="px-4 py-2 flex items-center gap-1.5 border-b border-gray-50">
+      <div className="px-5 py-3 flex items-center gap-1.5 border-b border-gray-50">
         {(['match', 'dday', 'amount'] as SortKey[]).map((s) => (
           <button
             key={s}
@@ -102,7 +107,7 @@ export function ForYou() {
       </div>
 
       {/* list */}
-      <div className="px-4 pt-3 space-y-2">
+      <div className="px-5 pt-4 space-y-3">
         {filtered.length === 0
           ? (
             <div className="text-center py-16">

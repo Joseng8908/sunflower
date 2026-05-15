@@ -63,9 +63,9 @@ export function Detail() {
   ].filter(Boolean) as string[]
 
   return (
-    <div className="min-h-dvh bg-gray-50">
+    <div className="min-h-dvh bg-[#f5f5fa]">
       {/* top nav */}
-      <div className="bg-white px-5 pt-header pb-4 flex items-center justify-between">
+      <div className="bg-white px-5 pt-header pb-5 flex items-center justify-between">
         <button onClick={() => navigate(-1)} className="p-1">
           <ChevronLeft size={22} className="text-gray-700" />
         </button>
@@ -78,7 +78,7 @@ export function Detail() {
       </div>
 
       {/* hero */}
-      <div className="bg-white px-5 pb-6 border-b border-gray-100">
+      <div className="bg-white px-5 pb-7 border-b border-gray-100">
         <div className="flex items-start gap-3">
           <CategoryIcon category={benefit.category} size={48} />
           <div className="flex-1">
@@ -97,15 +97,15 @@ export function Detail() {
         </div>
       </div>
 
-      <div className="px-5 py-5 space-y-5">
+      <div className="px-5 py-6 space-y-6">
         {/* description */}
-        <div className="bg-white rounded-2xl p-4">
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <h2 className="font-semibold text-gray-900 mb-2">지원 내용</h2>
           <p className="text-sm text-gray-600 leading-relaxed">{benefit.description}</p>
         </div>
 
         {/* eligibility */}
-        <div className="bg-white rounded-2xl p-4">
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <h2 className="font-semibold text-gray-900 mb-3">자격 조건</h2>
           <div className="space-y-2">
             {eligibilityItems.map((item) => (
@@ -119,7 +119,7 @@ export function Detail() {
 
         {/* dates */}
         {(benefit.applicationStart || benefit.applicationEnd) && (
-          <div className="bg-white rounded-2xl p-4">
+          <div className="bg-white rounded-2xl p-5 border border-gray-100">
             <h2 className="font-semibold text-gray-900 mb-3">신청 기간</h2>
             <div className="flex items-center gap-2">
               <Calendar size={16} className="text-indigo-400" />
@@ -141,7 +141,7 @@ export function Detail() {
 
         {/* reviews */}
         {benefitReviews.length > 0 && (
-          <div className="bg-white rounded-2xl p-4">
+          <div className="bg-white rounded-2xl p-5 border border-gray-100">
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-semibold text-gray-900">수혜 후기</h2>
               {avgRating && (
@@ -175,7 +175,7 @@ export function Detail() {
       </div>
 
       {/* CTA */}
-      <div className="sticky bottom-0 px-5 pb-nav pt-3 bg-gray-50">
+      <div className="sticky bottom-0 px-5 pb-nav pt-4 bg-[#f5f5fa]">
         <a
           href={benefit.applicationUrl}
           target="_blank"

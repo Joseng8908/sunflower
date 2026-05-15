@@ -29,7 +29,7 @@ export function BenefitCard({ benefit, profile, bookmarked, onToggleBookmark }: 
 
   return (
     <div
-      className="bg-white rounded-2xl px-3 pt-3 pb-2.5 border border-gray-100 cursor-pointer active:bg-gray-50 transition-colors overflow-hidden"
+      className="bg-white rounded-2xl px-4 pt-4 pb-3.5 border border-gray-100 cursor-pointer active:bg-gray-50 transition-colors overflow-hidden"
       style={{ boxShadow: 'var(--s1)' }}
       onClick={() => navigate(`/benefit/${benefit.id}`)}
     >

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GitCompare, CheckCircle2, XCircle, Plus, X } from 'lucide-react'
+import { Sparkles, CheckCircle2, XCircle, Plus, X } from 'lucide-react'
 import { findConflicts } from '@/lib/duplicate'
 import benefitsData from '@/data/benefits.json'
 import type { Benefit } from '@/types'
@@ -23,12 +23,14 @@ export function Duplicate() {
   }
 
   return (
-    <div className="min-h-dvh bg-gray-50">
+    <div className="min-h-dvh bg-[#f5f5fa]">
       {/* header */}
       <div className="bg-white px-5 pt-header pb-4 border-b border-gray-100">
         <div className="flex items-center gap-2 mb-1">
-          <GitCompare size={20} className="text-indigo-500" />
-          <h1 className="text-lg font-bold text-gray-900">중복 수혜 분석</h1>
+          <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+            <Sparkles size={16} className="text-white" />
+          </div>
+          <h1 className="text-[22px] font-bold text-gray-900">혜바라기</h1>
         </div>
         <p className="text-xs text-gray-400">신청하려는 혜택을 선택하면 충돌 여부를 확인해드려요</p>
       </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Check, GraduationCap, BookOpen, Search, Briefcase, Laptop } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Check, GraduationCap, BookOpen, Search, Briefcase, Laptop, Sparkles } from 'lucide-react'
 import { storage } from '@/lib/storage'
 import type { UserProfile, SchoolType, EmploymentStatus } from '@/types'
 
@@ -57,34 +57,38 @@ export function Onboarding() {
       : true
 
   return (
-    <div className="min-h-dvh flex flex-col" style={{ background: '#f8fafc' }}>
+    <div className="min-h-dvh flex flex-col bg-[#f5f5fa]">
       {/* header */}
       <div className="bg-white px-5 pt-header pb-4 border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          {step > 1 ? (
+        <div className="flex items-center gap-3 mb-3">
+          {step > 1 && (
             <button onClick={() => setStep((s) => s - 1)} className="p-1 -ml-1">
               <ChevronLeft size={22} className="text-gray-600" />
             </button>
-          ) : (
-            <div className="w-5 h-5 rounded-full bg-indigo-500" />
           )}
-          <div className="flex-1">
-            <div className="flex gap-1.5 mb-1">
-              {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-1 flex-1 rounded-full transition-all duration-300 ${i < step ? 'bg-indigo-500' : 'bg-gray-200'}`}
-                />
-              ))}
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+              <Sparkles size={16} className="text-white" />
             </div>
-            <p className="text-xs text-gray-400">{step} / {TOTAL_STEPS} 단계</p>
+            <h1 className="text-[22px] font-bold text-gray-900">혜바라기</h1>
           </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1.5 flex-1">
+            {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+              <div
+                key={i}
+                className={`h-1 flex-1 rounded-full transition-all duration-300 ${i < step ? 'bg-indigo-500' : 'bg-gray-200'}`}
+              />
+            ))}
+          </div>
+          <p className="text-xs text-gray-400">{step} / {TOTAL_STEPS} 단계</p>
         </div>
       </div>
 
       <div className="flex-1 px-5 py-6 overflow-y-auto">
         {step === 1 && (
-          <div>
+          <div className="bg-white rounded-2xl p-5 border border-gray-100" style={{ boxShadow: 'var(--s1)' }}>
             <h2 className="text-xl font-bold text-gray-900 mb-1">기본 정보를 입력해주세요</h2>
             <p className="text-sm text-gray-400 mb-6">맞춤 혜택을 찾기 위해 필요합니다</p>
 
@@ -97,14 +101,14 @@ export function Onboarding() {
                   value={form.name}
                   onChange={(e) => update('name', e.target.value)}
                   placeholder="이름을 입력하세요"
-                  className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3.5 text-sm outline-none focus:border-indigo-400 bg-white transition-colors"
+                  className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3.5 text-sm outline-none focus:border-indigo-400 bg-gray-50 transition-colors"
                 />
               </div>
 
               {/* age */}
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-2 block">나이</label>
-                <div className="flex items-center gap-4 bg-white border-2 border-gray-100 rounded-2xl px-4 py-3">
+                <div className="flex items-center gap-4 bg-gray-50 border-2 border-gray-100 rounded-2xl px-4 py-3">
                   <button
                     onClick={() => update('age', Math.max(19, (form.age ?? 22) - 1))}
                     className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center text-lg font-bold text-gray-600 active:bg-gray-200"
@@ -147,7 +151,7 @@ export function Onboarding() {
                   <label className="text-sm font-semibold text-gray-700">소득분위</label>
                   <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">선택</span>
                 </div>
-                <div className="bg-white border-2 border-gray-100 rounded-2xl p-4">
+                <div className="bg-gray-50 border-2 border-gray-100 rounded-2xl p-4">
                   {form.incomeLevel === null ? (
                     <div className="text-center">
                       <p className="text-sm text-gray-400 mb-3">소득분위를 모르거나 건너뛰고 싶다면?</p>
@@ -188,7 +192,7 @@ export function Onboarding() {
         )}
 
         {step === 2 && (
-          <div>
+          <div className="bg-white rounded-2xl p-5 border border-gray-100" style={{ boxShadow: 'var(--s1)' }}>
             <h2 className="text-xl font-bold text-gray-900 mb-1">학력 & 상황을 알려주세요</h2>
             <p className="text-sm text-gray-400 mb-6">더 정확한 혜택 매칭을 위해 필요합니다</p>
 
@@ -264,7 +268,7 @@ export function Onboarding() {
         )}
 
         {step === 3 && (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+          <div className="bg-white rounded-2xl p-8 border border-gray-100 flex flex-col items-center text-center" style={{ boxShadow: 'var(--s1)' }}>
             <div className="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
               <Check size={40} className="text-indigo-500" strokeWidth={2.5} />
             </div>
@@ -274,7 +278,7 @@ export function Onboarding() {
             </p>
             <p className="text-gray-500 text-sm">맞춤 혜택을 찾아볼게요</p>
 
-            <div className="mt-6 bg-indigo-50 rounded-2xl px-5 py-3 text-left w-full max-w-[240px]">
+            <div className="mt-6 bg-indigo-50 rounded-2xl px-4 py-3 text-left w-full max-w-[240px]">
               <p className="text-xs text-indigo-400 mb-1.5">입력하신 정보</p>
               <div className="space-y-1">
                 <p className="text-sm text-gray-700">{form.regionSido} · {form.age}세</p>

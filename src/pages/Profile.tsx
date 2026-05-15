@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { User, Edit3, Bookmark, CheckSquare, ChevronRight, Sun } from 'lucide-react'
+import { User, Edit3, Bookmark, CheckSquare, ChevronRight, Sun, Sparkles } from 'lucide-react'
 import { storage } from '@/lib/storage'
 import benefitsData from '@/data/benefits.json'
 import type { Benefit } from '@/types'
@@ -31,7 +31,7 @@ export function Profile() {
 
   if (!profile) {
     return (
-      <div className="min-h-dvh flex flex-col items-center justify-center px-6 text-center">
+      <div className="min-h-dvh flex flex-col items-center justify-center px-5 text-center">
         <Sun size={40} className="text-indigo-300 mb-4" />
         <h2 className="text-xl font-bold text-gray-900 mb-2">프로필이 없어요</h2>
         <p className="text-sm text-gray-400 mb-6">정보를 입력하면 맞춤 혜택을 찾아드려요</p>
@@ -46,11 +46,16 @@ export function Profile() {
   }
 
   return (
-    <div className="min-h-dvh bg-gray-50">
+    <div className="min-h-dvh bg-[#f5f5fa]">
       {/* header */}
-      <div className="bg-white px-5 pt-header pb-6">
+      <div className="bg-white px-5 pt-header pb-7">
         <div className="flex items-center justify-between mb-5">
-          <h1 className="text-lg font-bold text-gray-900">프로필</h1>
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+              <Sparkles size={16} className="text-white" />
+            </div>
+            <h1 className="text-[22px] font-bold text-gray-900">혜바라기</h1>
+          </div>
           <button
             onClick={() => navigate('/onboarding')}
             className="flex items-center gap-1 text-xs text-indigo-500 font-medium"
@@ -74,9 +79,9 @@ export function Profile() {
         </div>
       </div>
 
-      <div className="px-5 py-5 space-y-4">
+      <div className="px-5 py-6 space-y-5">
         {/* profile info */}
-        <div className="bg-white rounded-2xl p-4">
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <h2 className="font-semibold text-gray-900 mb-3">내 정보</h2>
           <div className="space-y-2.5">
             {[
@@ -95,7 +100,7 @@ export function Profile() {
         </div>
 
         {/* bookmarks */}
-        <div className="bg-white rounded-2xl p-4">
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Bookmark size={16} className="text-indigo-400" />
@@ -125,7 +130,7 @@ export function Profile() {
         </div>
 
         {/* applied */}
-        <div className="bg-white rounded-2xl p-4">
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <div className="flex items-center gap-2 mb-3">
             <CheckSquare size={16} className="text-green-400" />
             <h2 className="font-semibold text-gray-900">신청 이력</h2>

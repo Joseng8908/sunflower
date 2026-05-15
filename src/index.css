@@ -2,15 +2,15 @@
 
 :root {
   /* — Primary — */
-  --p:      #6366f1;
+  --p: #6366f1;
   --p-light: #eef2ff;
   --p-muted: #e0e7ff;
 
   /* — Neutrals — */
-  --bg:     #f7f7fb;
-  --surface:#ffffff;
+  --bg: #f5f5fa;
+  --surface: #ffffff;
   --border: #f0f0f4;
-  --divider:#e8e8ef;
+  --divider: #e8e8ef;
 
   /* — Text — */
   --t1: #111827;
@@ -18,9 +18,9 @@
   --t3: #9ca3af;
 
   /* — Semantic — */
-  --red:    #ef4444;
-  --amber:  #f59e0b;
-  --green:  #22c55e;
+  --red: #ef4444;
+  --amber: #f59e0b;
+  --green: #22c55e;
 
   /* — Radius — */
   --r-sm: 8px;
@@ -28,11 +28,17 @@
   --r-lg: 16px;
 
   /* — Shadow — */
-  --s1: 0 1px 6px rgba(0,0,0,0.05);
-  --s2: 0 2px 12px rgba(0,0,0,0.08);
+  --s1: 0 1px 6px rgba(0, 0, 0, 0.05);
+  --s2: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background: var(--bg);
@@ -44,7 +50,7 @@ body {
 
 /* mobile shell */
 #root {
-  width: calc(100% - 16px);
+  width: 100%;
   max-width: 390px;
   min-height: 100dvh;
   margin: 0 auto;
@@ -52,14 +58,25 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 40px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 8px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 8px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* safe area utilities — requires viewport-fit=cover */
-.pt-safe  { padding-top:    env(safe-area-inset-top,    0px); }
-.pb-safe  { padding-bottom: env(safe-area-inset-bottom, 0px); }
-.pl-safe  { padding-left:   env(safe-area-inset-left,   0px); }
-.pr-safe  { padding-right:  env(safe-area-inset-right,  0px); }
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pl-safe {
+  padding-left: env(safe-area-inset-left, 0px);
+}
+
+.pr-safe {
+  padding-right: env(safe-area-inset-right, 0px);
+}
 
 /* page header top = max(fallback, safe-area + padding) */
 /* env() returns 0 in non-PWA — max() ensures minimum breathing room */
@@ -72,5 +89,10 @@ body {
   padding-bottom: max(72px, calc(env(safe-area-inset-bottom, 0px) + 58px));
 }
 
-.hide-scrollbar { scrollbar-width: none; }
-.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

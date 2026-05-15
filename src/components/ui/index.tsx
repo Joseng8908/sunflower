@@ -59,7 +59,7 @@ export function Chip({ active, children, onClick }: {
     <button
       onClick={onClick}
       className={cn(
-        'shrink-0 text-[12px] font-semibold px-3 py-[7px] rounded-full leading-none transition-colors',
+        'shrink-0 h-8 min-w-[64px] w-full flex items-center justify-center text-[12px] font-semibold px-4 rounded-full transition-colors',
         active ? 'bg-indigo-500 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
       )}
     >

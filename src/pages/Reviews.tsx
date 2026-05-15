@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react'
+import { Star, Sparkles } from 'lucide-react'
 import { SectionLabel } from '@/components/ui'
 import reviewsData from '@/data/reviews.json'
 import benefitsData from '@/data/benefits.json'
@@ -10,18 +10,23 @@ const benefits = benefitsData as Benefit[]
 export function Reviews() {
   return (
     <div className="min-h-dvh bg-[#f5f5fa] pb-nav">
-      <div className="px-5 pt-header pb-3">
-        <h1 className="text-[22px] font-bold text-gray-900">수혜 후기</h1>
+      <div className="px-5 pt-header pb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+            <Sparkles size={16} className="text-white" />
+          </div>
+          <h1 className="text-[22px] font-bold text-gray-900">혜바라기</h1>
+        </div>
         <p className="text-[12px] text-gray-400 mt-0.5">실제 수혜자들의 생생한 후기</p>
       </div>
 
       <section className="px-5">
-        <SectionLabel className="mb-2.5">Recent Reviews</SectionLabel>
-        <div className="space-y-2">
+        <SectionLabel className="mb-3">Recent Reviews</SectionLabel>
+        <div className="space-y-3">
           {reviews.map((r) => {
             const benefit = benefits.find((b) => b.id === r.benefitId)
             return (
-              <div key={r.id} className="bg-white rounded-2xl p-3 border border-gray-100" style={{ boxShadow: 'var(--s1)' }}>
+              <div key={r.id} className="bg-white rounded-2xl p-4 border border-gray-100" style={{ boxShadow: 'var(--s1)' }}>
                 <div className="flex items-center gap-1.5 mb-1">
                   <div className="flex">
                     {Array.from({ length: 5 }).map((_, i) => (
