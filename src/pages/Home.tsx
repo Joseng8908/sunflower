@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bell, ChevronRight } from 'lucide-react'
+import { Bell, ChevronRight, CalendarClock } from 'lucide-react'
 import { storage } from '@/lib/storage'
 import { filterBenefits } from '@/lib/filter'
 import { getDday } from '@/lib/dday'
@@ -47,7 +47,7 @@ export function Home() {
           <div>
             <p className="text-[11px] text-gray-400 mb-0.5">안녕하세요,</p>
             <h1 className="text-[22px] font-bold text-gray-900">
-              {profile?.name ?? '게스트'}님 👋
+              {profile?.name ?? '게스트'}님
             </h1>
           </div>
           <button className="relative w-9 h-9 flex items-center justify-center">
@@ -91,7 +91,7 @@ export function Home() {
       {/* ── 마감 임박 알림 ── */}
       {deadlineSoon.length > 0 && (
         <div className="mx-4 mb-5 bg-amber-50 rounded-xl px-3.5 py-2.5 flex items-center gap-2">
-          <span className="text-sm">📅</span>
+          <CalendarClock size={15} className="text-amber-600 shrink-0" />
           <p className="text-[12px] text-amber-800 font-semibold">
             마감 전! 놓치기 쉬운 혜택 {deadlineSoon.length}개
           </p>
@@ -169,7 +169,7 @@ export function Home() {
               `${profile.age}세 → 청년내일저축계좌 관심`,
             ].map((text) => (
               <p key={text} className="text-[12px] text-gray-600 flex items-start gap-1.5">
-                <span className="text-gray-400 mt-0.5">•</span>
+                <span className="text-gray-300 mt-0.5">-</span>
                 {text}
               </p>
             ))}

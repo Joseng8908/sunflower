@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Check, Sun } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Check, GraduationCap, BookOpen, Search, Briefcase, Laptop } from 'lucide-react'
 import { storage } from '@/lib/storage'
 import type { UserProfile, SchoolType, EmploymentStatus } from '@/types'
 
 const SIDOS = ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주']
 
-const SCHOOL_TYPES: { value: SchoolType; label: string; emoji: string }[] = [
-  { value: 'university', label: '4년제 대학교', emoji: '🎓' },
-  { value: 'college', label: '2~3년제 대학', emoji: '🏫' },
-  { value: 'grad', label: '대학원', emoji: '📚' },
-  { value: 'none', label: '해당 없음', emoji: '➖' },
+const SCHOOL_TYPES: { value: SchoolType; label: string; Icon: React.FC<{size:number}> }[] = [
+  { value: 'university', label: '4년제 대학교', Icon: ({size}) => <GraduationCap size={size} strokeWidth={1.8} /> },
+  { value: 'college',    label: '2~3년제 대학',  Icon: ({size}) => <BookOpen      size={size} strokeWidth={1.8} /> },
+  { value: 'grad',       label: '대학원',         Icon: ({size}) => <GraduationCap size={size} strokeWidth={1.8} /> },
+  { value: 'none',       label: '해당 없음',       Icon: ({size}) => <Check         size={size} strokeWidth={1.8} /> },
 ]
 
-const EMPLOYMENT_STATUSES: { value: EmploymentStatus; label: string; emoji: string }[] = [
-  { value: 'student', label: '재학생', emoji: '📖' },
-  { value: 'job_seeker', label: '취업준비생', emoji: '🔍' },
-  { value: 'employed', label: '직장인', emoji: '💼' },
-  { value: 'freelance', label: '프리랜서/자영업', emoji: '🧑‍💻' },
+const EMPLOYMENT_STATUSES: { value: EmploymentStatus; label: string; Icon: React.FC<{size:number}> }[] = [
+  { value: 'student',    label: '재학생',          Icon: ({size}) => <BookOpen  size={size} strokeWidth={1.8} /> },
+  { value: 'job_seeker', label: '취업준비생',       Icon: ({size}) => <Search    size={size} strokeWidth={1.8} /> },
+  { value: 'employed',   label: '직장인',          Icon: ({size}) => <Briefcase size={size} strokeWidth={1.8} /> },
+  { value: 'freelance',  label: '프리랜서/자영업',  Icon: ({size}) => <Laptop    size={size} strokeWidth={1.8} /> },
 ]
 
 const TOTAL_STEPS = 3
@@ -66,7 +66,7 @@ export function Onboarding() {
               <ChevronLeft size={22} className="text-gray-600" />
             </button>
           ) : (
-            <Sun size={20} className="text-indigo-500" />
+            <div className="w-5 h-5 rounded-full bg-indigo-500" />
           )}
           <div className="flex-1">
             <div className="flex gap-1.5 mb-1">
@@ -197,7 +197,7 @@ export function Onboarding() {
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-2 block">학교 유형</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {SCHOOL_TYPES.map(({ value, label, emoji }) => (
+                  {SCHOOL_TYPES.map(({ value, label, Icon }) => (
                     <button
                       key={value}
                       onClick={() => update('schoolType', value)}
@@ -207,7 +207,7 @@ export function Onboarding() {
                           : 'bg-white border-2 border-gray-100 text-gray-600'
                       }`}
                     >
-                      <span>{emoji}</span>{label}
+                      <Icon size={15} />{label}
                     </button>
                   ))}
                 </div>
@@ -239,7 +239,7 @@ export function Onboarding() {
               <div>
                 <label className="text-sm font-semibold text-gray-700 mb-2 block">현재 상황</label>
                 <div className="space-y-2">
-                  {EMPLOYMENT_STATUSES.map(({ value, label, emoji }) => (
+                  {EMPLOYMENT_STATUSES.map(({ value, label, Icon }) => (
                     <button
                       key={value}
                       onClick={() => update('employmentStatus', value)}
@@ -250,7 +250,7 @@ export function Onboarding() {
                       }`}
                     >
                       <span className="flex items-center gap-2.5">
-                        <span>{emoji}</span>{label}
+                        <Icon size={15} />{label}
                       </span>
                       {form.employmentStatus === value && (
                         <Check size={16} className="text-indigo-500" />
@@ -266,7 +266,7 @@ export function Onboarding() {
         {step === 3 && (
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
             <div className="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
-              <span className="text-4xl">🌻</span>
+              <Check size={40} className="text-indigo-500" strokeWidth={2.5} />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">완료!</h2>
             <p className="text-gray-500 text-sm mb-1">
@@ -277,12 +277,12 @@ export function Onboarding() {
             <div className="mt-6 bg-indigo-50 rounded-2xl px-5 py-3 text-left w-full max-w-[240px]">
               <p className="text-xs text-indigo-400 mb-1.5">입력하신 정보</p>
               <div className="space-y-1">
-                <p className="text-sm text-gray-700">📍 {form.regionSido} · {form.age}세</p>
+                <p className="text-sm text-gray-700">{form.regionSido} · {form.age}세</p>
                 <p className="text-sm text-gray-700">
-                  🎓 {SCHOOL_TYPES.find(s => s.value === form.schoolType)?.label}
+                  {SCHOOL_TYPES.find(s => s.value === form.schoolType)?.label}
                 </p>
                 {form.incomeLevel !== null && (
-                  <p className="text-sm text-gray-700">💰 소득 {form.incomeLevel}분위</p>
+                  <p className="text-sm text-gray-700">소득 {form.incomeLevel}분위</p>
                 )}
               </div>
             </div>

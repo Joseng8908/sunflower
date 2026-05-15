@@ -1,5 +1,9 @@
 import { cn } from '@/lib/cn'
 import type { ReactNode } from 'react'
+import {
+  GraduationCap, Home, Coins, Briefcase,
+  Palette, HeartPulse, Sparkles,
+} from 'lucide-react'
 
 /* ── Typography ─────────────────────────────────────────────── */
 
@@ -62,7 +66,7 @@ export function Card({ children, className, onClick }: {
   )
 }
 
-/* ── Chip (filter button) ───────────────────────────────────── */
+/* ── Chip ───────────────────────────────────────────────────── */
 
 export function Chip({ active, children, onClick }: {
   active: boolean
@@ -82,26 +86,49 @@ export function Chip({ active, children, onClick }: {
   )
 }
 
-/* ── IconBox ────────────────────────────────────────────────── */
+/* ── CategoryIcon ───────────────────────────────────────────── */
 
 const catBg: Record<string, string> = {
-  scholarship: '#EEF2FF', housing: '#F0FDF4', finance: '#FFFBEB',
-  employment: '#FFF7ED', culture: '#FDF4FF', health: '#FFF0F3', other: '#F0F9FF',
+  scholarship: '#EEF2FF',
+  housing:     '#F0FDF4',
+  finance:     '#FFFBEB',
+  employment:  '#FFF7ED',
+  culture:     '#FDF4FF',
+  health:      '#FFF0F3',
+  other:       '#F0F9FF',
 }
-const catEmoji: Record<string, string> = {
-  scholarship: '🎓', housing: '🏠', finance: '💰',
-  employment: '💼', culture: '🎭', health: '💚', other: '✨',
+
+const catColor: Record<string, string> = {
+  scholarship: '#6366f1',
+  housing:     '#22c55e',
+  finance:     '#f59e0b',
+  employment:  '#f97316',
+  culture:     '#a855f7',
+  health:      '#ec4899',
+  other:       '#38bdf8',
+}
+
+const CatIconComponent: Record<string, React.FC<{ size: number; color: string }>> = {
+  scholarship: ({ size, color }) => <GraduationCap size={size} color={color} strokeWidth={1.8} />,
+  housing:     ({ size, color }) => <Home          size={size} color={color} strokeWidth={1.8} />,
+  finance:     ({ size, color }) => <Coins         size={size} color={color} strokeWidth={1.8} />,
+  employment:  ({ size, color }) => <Briefcase     size={size} color={color} strokeWidth={1.8} />,
+  culture:     ({ size, color }) => <Palette       size={size} color={color} strokeWidth={1.8} />,
+  health:      ({ size, color }) => <HeartPulse    size={size} color={color} strokeWidth={1.8} />,
+  other:       ({ size, color }) => <Sparkles      size={size} color={color} strokeWidth={1.8} />,
 }
 
 export function CategoryIcon({ category, size = 40 }: { category: string; size?: number }) {
+  const Icon = CatIconComponent[category] ?? CatIconComponent.other
+  const iconSize = Math.round(size * 0.45)
   return (
     <div
       className="rounded-xl flex items-center justify-center shrink-0"
-      style={{ width: size, height: size, background: catBg[category] ?? '#F4F4F8', fontSize: size * 0.45 }}
+      style={{ width: size, height: size, background: catBg[category] ?? '#F4F4F8' }}
     >
-      {catEmoji[category] ?? '✨'}
+      <Icon size={iconSize} color={catColor[category] ?? '#6366f1'} />
     </div>
   )
 }
 
-export { catBg, catEmoji }
+export { catBg }

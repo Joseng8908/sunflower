@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Sun, Search, Shield, Bell } from 'lucide-react'
+import { Sparkles, Search, Shield, Bell } from 'lucide-react'
 
 export function Landing() {
   const navigate = useNavigate()
@@ -9,7 +9,7 @@ export function Landing() {
       {/* hero */}
       <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 px-6 pt-16 pb-12 text-white">
         <div className="flex items-center gap-2 mb-6">
-          <Sun size={28} className="text-yellow-300" />
+          <Sparkles size={24} className="text-indigo-200" strokeWidth={1.8} />
           <span className="text-2xl font-bold tracking-tight">혜바라기</span>
         </div>
         <h1 className="text-3xl font-bold leading-tight mb-3">
@@ -39,7 +39,7 @@ export function Landing() {
         </div>
 
         <div className="bg-indigo-50 rounded-2xl p-4 mb-6">
-          <p className="text-xs text-indigo-600 font-medium mb-1">💡 알고 계셨나요?</p>
+          <p className="text-xs text-indigo-600 font-medium mb-1">알고 계셨나요?</p>
           <p className="text-sm text-gray-700">
             청년 1인이 생애 받을 수 있는 혜택은 최대 <strong className="text-indigo-600">5,000만 원</strong>입니다.
             하지만 하위 소득집단 인지율은 30% 이하입니다.
