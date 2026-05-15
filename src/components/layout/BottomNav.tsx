@@ -1,29 +1,30 @@
-import { Home, Sparkles, GitCompare, User } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
+import { Home, Sparkles, GitCompare, User, Star } from 'lucide-react'
 
-const items = [
-  { to: '/home', icon: Home, label: '홈' },
-  { to: '/for-you', icon: Sparkles, label: 'For You' },
-  { to: '/duplicate', icon: GitCompare, label: '중복분석' },
-  { to: '/profile', icon: User, label: '프로필' },
+const NAV = [
+  { to: '/home',      Icon: Home,       label: 'Home' },
+  { to: '/for-you',   Icon: Sparkles,   label: 'For You' },
+  { to: '/duplicate', Icon: GitCompare, label: '중복분석' },
+  { to: '/profile',   Icon: User,       label: 'Profile' },
+  { to: '/reviews',   Icon: Star,       label: 'Review' },
 ]
 
 export function BottomNav() {
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-gray-100 z-50">
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] bg-white border-t border-gray-100 z-50 pb-safe rounded-b-[40px]">
       <div className="flex">
-        {items.map(({ to, icon: Icon, label }) => (
+        {NAV.map(({ to, Icon, label }) => (
           <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex flex-col items-center justify-center flex-1 py-2.5 gap-0.5 text-[10px] font-semibold transition-colors ${
+              `flex flex-col items-center justify-center flex-1 py-3 gap-[3px] transition-colors ${
                 isActive ? 'text-indigo-500' : 'text-gray-400'
               }`
             }
           >
-            <Icon size={18} strokeWidth={1.8} />
-            <span>{label}</span>
+            <Icon size={20} strokeWidth={1.8} />
+            <span className="text-[10px] font-semibold">{label}</span>
           </NavLink>
         ))}
       </div>

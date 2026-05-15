@@ -7,7 +7,7 @@ export function Landing() {
   return (
     <div className="min-h-dvh flex flex-col">
       {/* hero */}
-      <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 px-6 pt-16 pb-12 text-white">
+      <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 px-6 pt-header pb-12 text-white">
         <div className="flex items-center gap-2 mb-6">
           <Sparkles size={24} className="text-indigo-200" strokeWidth={1.8} />
           <span className="text-2xl font-bold tracking-tight">혜바라기</span>
@@ -48,7 +48,7 @@ export function Landing() {
       </div>
 
       {/* CTA */}
-      <div className="px-6 pb-10 space-y-3">
+      <div className="px-6 space-y-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 32px)' }}>
         <button
           onClick={() => navigate('/onboarding')}
           className="w-full bg-indigo-500 text-white font-semibold py-4 rounded-2xl text-base active:bg-indigo-600 transition-colors"

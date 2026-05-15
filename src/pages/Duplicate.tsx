@@ -25,7 +25,7 @@ export function Duplicate() {
   return (
     <div className="min-h-dvh bg-gray-50">
       {/* header */}
-      <div className="bg-white px-5 pt-12 pb-4 border-b border-gray-100">
+      <div className="bg-white px-5 pt-header pb-4 border-b border-gray-100">
         <div className="flex items-center gap-2 mb-1">
           <GitCompare size={20} className="text-indigo-500" />
           <h1 className="text-lg font-bold text-gray-900">중복 수혜 분석</h1>
@@ -52,7 +52,7 @@ export function Duplicate() {
               className="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center cursor-pointer"
               onClick={() => setShowPicker(true)}
             >
-              <p className="text-3xl mb-2">➕</p>
+              <Plus size={24} className="text-gray-300 mx-auto mb-2" />
               <p className="text-sm text-gray-400">혜택을 추가해 중복 여부를 확인하세요</p>
             </div>
           ) : (
@@ -94,7 +94,7 @@ export function Duplicate() {
               <div className="bg-green-50 border border-green-200 rounded-2xl p-5 text-center">
                 <CheckCircle2 size={28} className="text-green-500 mx-auto mb-2" />
                 <p className="font-semibold text-green-700">충돌 없음!</p>
-                <p className="text-sm text-green-600 mt-1">선택한 혜택들은 모두 함께 수혜 가능합니다 🎉</p>
+                <p className="text-sm text-green-600 mt-1">선택한 혜택들은 모두 함께 수혜 가능합니다</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -121,7 +121,7 @@ export function Duplicate() {
 
                 {/* alternative suggestions */}
                 <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-4">
-                  <p className="text-sm font-semibold text-indigo-700 mb-2">💡 대신 추천</p>
+                  <p className="text-sm font-semibold text-indigo-700 mb-2">대신 추천</p>
                   <p className="text-xs text-indigo-500 mb-3">중복 없이 함께 신청할 수 있는 대안을 확인하세요</p>
                   <button
                     onClick={() => navigate('/for-you')}

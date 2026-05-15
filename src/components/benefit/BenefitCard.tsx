@@ -1,9 +1,8 @@
-import { Bookmark, BookmarkCheck } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { Bookmark, BookmarkCheck } from 'lucide-react'
 import type { Benefit, UserProfile } from '@/types'
-import { getDdayLabel, getDday } from '@/lib/dday'
+import { getDday, getDdayLabel } from '@/lib/dday'
 import { matchScore } from '@/lib/filter'
-import { formatCategory } from '@/lib/format'
 import { Badge, CategoryIcon } from '@/components/ui'
 
 interface Props {
@@ -15,60 +14,67 @@ interface Props {
 
 export function BenefitCard({ benefit, profile, bookmarked, onToggleBookmark }: Props) {
   const navigate = useNavigate()
-  const ddayLabel = getDdayLabel(benefit.applicationEnd)
-  const ddayDiff = getDday(benefit.applicationEnd)
+  const dday  = getDday(benefit.applicationEnd)
+  const label = getDdayLabel(benefit.applicationEnd)
   const score = profile ? matchScore(benefit, profile) : null
 
   const ddayVariant =
-    ddayDiff === null ? undefined :
-    ddayDiff < 0 ? 'dday-closed' :
-    ddayDiff <= 3 ? 'dday-urgent' : 'dday-normal'
+    dday === null ? undefined :
+    dday < 0      ? 'closed' :
+    dday <= 3     ? 'urgent' : 'normal'
+
+  const isHot = score !== null && score >= 88 && (dday === null || dday > 10)
+  const activeBadgeVariant = isHot && ddayVariant === undefined ? 'hot' : ddayVariant
+  const activeBadgeLabel   = isHot && ddayVariant === undefined ? 'HOT' : label
 
   return (
     <div
-      className="bg-white rounded-2xl p-3 shadow-[0_1px_8px_rgba(0,0,0,0.06)] cursor-pointer active:scale-[0.98] transition-transform"
+      className="bg-white rounded-2xl px-3 pt-3 pb-2.5 border border-gray-100 cursor-pointer active:bg-gray-50 transition-colors overflow-hidden"
+      style={{ boxShadow: 'var(--s1)' }}
       onClick={() => navigate(`/benefit/${benefit.id}`)}
     >
-      <div className="flex items-center gap-3">
-        <CategoryIcon category={benefit.category} size={44} />
+      {/* icon + title row */}
+      <div className="flex items-center gap-2.5">
+        <CategoryIcon category={benefit.category} size={40} />
 
         <div className="flex-1 min-w-0">
-          {/* title row */}
-          <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
-            <span className="text-[14px] font-semibold text-gray-900 leading-snug">{benefit.title}</span>
-            {ddayLabel && ddayVariant && (
-              <Badge variant={ddayVariant}>{ddayLabel}</Badge>
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span className="text-[13px] font-semibold text-gray-900 truncate flex-1 min-w-0">
+              {benefit.title}
+            </span>
+            {activeBadgeLabel && activeBadgeVariant && (
+              <Badge variant={activeBadgeVariant} className="shrink-0">{activeBadgeLabel}</Badge>
             )}
           </div>
+          <p className="text-[11px] text-gray-400 mt-0.5 truncate">
+            {benefit.amountLabel} · {benefit.sourceOrg}
+          </p>
 
-          {/* meta */}
-          <p className="text-[11px] text-gray-400 mb-1">{benefit.sourceOrg} · {formatCategory(benefit.category)}</p>
-
-          {/* amount */}
-          <p className="text-[13px] font-bold text-indigo-500">{benefit.amountLabel}</p>
+          {/* progress bar — 텍스트 영역 안에서만 */}
+          {score !== null && (
+            <div className="flex items-center gap-2 mt-1.5">
+              <div className="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-indigo-400"
+                  style={{ width: `${score}%` }}
+                />
+              </div>
+              <span className="text-[10px] font-bold text-indigo-400 shrink-0 w-8 text-right">
+                {score}%
+              </span>
+            </div>
+          )}
         </div>
 
-        {/* bookmark */}
         <button
-          className="shrink-0 p-1.5 -mr-1"
+          className="shrink-0 p-1 -mr-0.5"
           onClick={(e) => { e.stopPropagation(); onToggleBookmark(benefit.id) }}
         >
           {bookmarked
-            ? <BookmarkCheck size={16} className="text-indigo-400" />
-            : <Bookmark size={16} className="text-gray-300" />
-          }
+            ? <BookmarkCheck size={14} className="text-indigo-400" />
+            : <Bookmark size={14} className="text-gray-300" />}
         </button>
       </div>
-
-      {/* match bar */}
-      {score !== null && (
-        <div className="mt-2.5 flex items-center gap-2">
-          <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-            <div className="h-full bg-indigo-400 rounded-full" style={{ width: `${score}%` }} />
-          </div>
-          <span className="text-[11px] font-bold text-indigo-400 w-7 text-right">{score}%</span>
-        </div>
-      )}
     </div>
   )
 }

@@ -48,7 +48,7 @@ export function Profile() {
   return (
     <div className="min-h-dvh bg-gray-50">
       {/* header */}
-      <div className="bg-white px-5 pt-12 pb-6">
+      <div className="bg-white px-5 pt-header pb-6">
         <div className="flex items-center justify-between mb-5">
           <h1 className="text-lg font-bold text-gray-900">프로필</h1>
           <button
@@ -84,7 +84,7 @@ export function Profile() {
               { label: '지역', value: profile.regionSido },
               { label: '학교 유형', value: SCHOOL_TYPE_LABEL[profile.schoolType] },
               { label: '현재 상황', value: EMPLOYMENT_LABEL[profile.employmentStatus] },
-              { label: '소득분위', value: `${profile.incomeLevel}분위` },
+              { label: '소득분위', value: profile.incomeLevel !== null ? `${profile.incomeLevel}분위` : '미입력' },
             ].map(({ label, value }) => (
               <div key={label} className="flex items-center justify-between">
                 <span className="text-sm text-gray-400">{label}</span>

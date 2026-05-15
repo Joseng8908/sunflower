@@ -5,8 +5,9 @@ import {
   Star, Calendar,
 } from 'lucide-react'
 import { storage } from '@/lib/storage'
-import { getDdayLabel, getDdayColor } from '@/lib/dday'
-import { formatCategory, formatSourceType } from '@/lib/format'
+import { getDday, getDdayLabel } from '@/lib/dday'
+import { formatSourceType } from '@/lib/format'
+import { Badge, CategoryIcon } from '@/components/ui'
 import benefitsData from '@/data/benefits.json'
 import reviewsData from '@/data/reviews.json'
 import type { Benefit, Review } from '@/types'
@@ -33,8 +34,9 @@ export function Detail() {
     ? benefitReviews.reduce((s, r) => s + r.rating, 0) / benefitReviews.length
     : null
 
+  const dday = getDday(benefit.applicationEnd)
   const ddayLabel = getDdayLabel(benefit.applicationEnd)
-  const ddayColor = getDdayColor(benefit.applicationEnd)
+  const ddayVariant = dday === null ? undefined : dday < 0 ? 'closed' : dday <= 3 ? 'urgent' : 'normal'
   const isBookmarked = bookmarks.includes(benefit.id)
 
   function toggleBookmark() {
@@ -63,7 +65,7 @@ export function Detail() {
   return (
     <div className="min-h-dvh bg-gray-50">
       {/* top nav */}
-      <div className="bg-white px-5 pt-12 pb-4 flex items-center justify-between">
+      <div className="bg-white px-5 pt-header pb-4 flex items-center justify-between">
         <button onClick={() => navigate(-1)} className="p-1">
           <ChevronLeft size={22} className="text-gray-700" />
         </button>
@@ -78,20 +80,14 @@ export function Detail() {
       {/* hero */}
       <div className="bg-white px-5 pb-6 border-b border-gray-100">
         <div className="flex items-start gap-3">
-          <div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center text-2xl shrink-0">
-            {({ scholarship: '🎓', housing: '🏠', finance: '💰', employment: '💼', culture: '🎭', health: '💚', other: '✨' })[benefit.category]}
-          </div>
+          <CategoryIcon category={benefit.category} size={48} />
           <div className="flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs text-gray-400">{formatSourceType(benefit.sourceType)} · {formatCategory(benefit.category)}</span>
-              {ddayLabel && (
-                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${ddayColor}`}>
-                  {ddayLabel}
-                </span>
-              )}
+              <span className="text-[11px] text-gray-400">{formatSourceType(benefit.sourceType)}</span>
+              {ddayLabel && ddayVariant && <Badge variant={ddayVariant}>{ddayLabel}</Badge>}
             </div>
-            <h1 className="text-xl font-bold text-gray-900 mt-1">{benefit.title}</h1>
-            <p className="text-sm text-gray-400 mt-0.5">{benefit.sourceOrg}</p>
+            <h1 className="text-[18px] font-bold text-gray-900 mt-0.5 leading-snug">{benefit.title}</h1>
+            <p className="text-[12px] text-gray-400 mt-0.5">{benefit.sourceOrg}</p>
           </div>
         </div>
 
@@ -179,7 +175,7 @@ export function Detail() {
       </div>
 
       {/* CTA */}
-      <div className="sticky bottom-20 px-5 pb-4">
+      <div className="sticky bottom-0 px-5 pb-nav pt-3 bg-gray-50">
         <a
           href={benefit.applicationUrl}
           target="_blank"

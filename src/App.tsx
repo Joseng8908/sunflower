@@ -7,6 +7,7 @@ import { ForYou } from '@/pages/ForYou'
 import { Detail } from '@/pages/Detail'
 import { Duplicate } from '@/pages/Duplicate'
 import { Profile } from '@/pages/Profile'
+import { Reviews } from '@/pages/Reviews'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/benefit/:id" element={<Detail />} />
           <Route path="/duplicate" element={<Duplicate />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/reviews" element={<Reviews />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -59,7 +59,7 @@ export function Onboarding() {
   return (
     <div className="min-h-dvh flex flex-col" style={{ background: '#f8fafc' }}>
       {/* header */}
-      <div className="bg-white px-5 pt-12 pb-4 border-b border-gray-100">
+      <div className="bg-white px-5 pt-header pb-4 border-b border-gray-100">
         <div className="flex items-center gap-3">
           {step > 1 ? (
             <button onClick={() => setStep((s) => s - 1)} className="p-1 -ml-1">
@@ -291,7 +291,7 @@ export function Onboarding() {
       </div>
 
       {/* CTA */}
-      <div className="px-5 pb-10 pt-4 bg-white border-t border-gray-100">
+      <div className="px-5 pb-safe pt-4 bg-white border-t border-gray-100" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 24px)' }}>
         <button
           onClick={handleNext}
           disabled={!canNext}
@@ -301,7 +301,7 @@ export function Onboarding() {
               : 'bg-gray-100 text-gray-400 cursor-not-allowed'
           }`}
         >
-          {step === TOTAL_STEPS ? '🌻 혜택 찾아보기' : '다음'}
+          {step === TOTAL_STEPS ? '혜택 찾아보기' : '다음'}
           {step < TOTAL_STEPS && <ChevronRight size={18} />}
         </button>
       </div>
